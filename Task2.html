@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Level 1 – Task 2 | JavaScript</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      text-align: center;
+      background-color: paleturquoise;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #2200ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #b30062;
+    }
+
+    input {
+      padding: 8px;
+      margin: 5px;
+      width: 150px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    p {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Level 1 - Task 2 (JavaScript Functions)</h1>
+
+  <!-- Task 1: Color Changing Button -->
+  <section>
+    <h2>1. Change Button Color</h2>
+    <button id="colorButton" onclick="changeColor()">Click Me</button>
+  </section>
+
+ <sec>
+    
+  </sec>
+  <section>
+    <h2>2. Greet Me Based on Time</h2>
+    <button onclick="showGreeting()">Greet Me</button>
+  </section>
+
+  <!-- Task 3: Basic Calculator -->
+  <section>
+    <h2>3. Simple Calculator</h2>
+    <input type="number" id="num1" placeholder="First number">
+    <input type="number" id="num2" placeholder="Second number"><br>
+    <button onclick="calculateSum()">Add</button>
+    <p id="result"></p>
+  </section>
+
+  <!-- JavaScript -->
+  <script>
+    // Task 1: Change button color
+    function changeColor() {
+      const button = document.getElementById("colorButton");
+      button.style.backgroundColor = "green";
+      button.style.color = "white";
+    }
+
+    // Task 2: Time-based greeting
+    function showGreeting() {
+      const hour = new Date().getHours();
+      let greeting = "";
+
+      if (hour < 12) {
+        greeting = "Good Morning!";
+      } else if (hour < 18) {
+        greeting = "Good Afternoon!";
+      } else {
+        greeting = "Good Evening!";
+      }
+
+      alert(greeting);
+    }
+
+    // Task 3: Calculator
+    function calculateSum() {
+      const n1 = parseFloat(document.getElementById("num1").value);
+      const n2 = parseFloat(document.getElementById("num2").value);
+      const resultElement = document.getElementById("result");
+
+      if (!isNaN(n1) && !isNaN(n2)) {
+        resultElement.textContent = "Sum: " + (n1 + n2);
+      } else {
+        resultElement.textContent = "Please enter valid numbers.";
+      }
+    }
+  </script>
+<a href="index.html" class="btn btn-primary">Back to Home</a>
+</body>
+</html>

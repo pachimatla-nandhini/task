@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Task 2 — Landing Page with Slideshow</title>
+  <style>
+    /* --------- Reset & base --------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; font-family: Inter, Arial, sans-serif; color:#fff; background:#0b0b0b; }
+
+    /* --------- Header / Nav --------- */
+    header { background: rgba(0,0,0,0.45); position: sticky; top:0; z-index: 50; }
+    .nav { max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { font-weight:700; font-size:1.1rem; letter-spacing:0.3px; }
+    .menu { display:flex; gap:12px; list-style:none; }
+    .menu a { color: #fff; text-decoration:none; padding:6px 10px; border-radius:6px; }
+    .menu a.active, .menu a:hover { background: rgba(255,255,255,0.08); }
+
+    /* --------- Slideshow container --------- */
+    .hero { max-width:1100px; margin:28px auto; padding:18px; display:grid; grid-template-columns: 1fr 420px; gap:20px; align-items:center; }
+    @media (max-width:920px) { .hero { grid-template-columns: 1fr; padding:12px; } }
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px purple;
+      min-height: 300px;
+      background:#111;
+    }
+
+    .slide {
+      display: none;
+      width:100%;
+      height:100%;
+    }
+    .slide img {
+      display:block;
+      width:100%;
+      height:420px;
+      object-fit:cover;
+    }
+    @media (max-width:600px){ .slide img { height:260px; } }
+
+    /* Arrows */
+    .arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.45); color:#fff; border:none; padding:10px; border-radius:50%; cursor:pointer; }
+    .arrow.left { left:12px; } .arrow.right { right:12px; }
+    .arrow:focus { outline:2px solid rgba(255, 255, 255, 0.15); }
+
+    /* Dots / indicators */
+    .dots { position:absolute; left:50%; transform:translateX(-50%); bottom:10px; display:flex; gap:8px; }
+    .dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.35); cursor:pointer; }
+    .dot.active { background:#ff00ae; transform:scale(1.15); }
+
+    /* Right column: text / CTA */
+    .hero-card {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
+      padding:20px;
+      border-radius:12px;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      justify-content:center;
+    }
+    .hero-card h1 { font-size:1.6rem; line-height:1.1; }
+    .hero-card p { color: #ddd; font-size:0.98rem; }
+    .cta-row { display:flex; gap:12px; margin-top:6px; }
+    .btn { background:#ff00e6; color:#fff; padding:10px 14px; border-radius:8px; text-decoration:none; font-weight:600; }
+    .btn.ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:#fff; }
+
+    /* Footer */
+    footer { margin-top:28px; text-align:center; padding:16px; color:#bbb; font-size:0.9rem; }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav" role="navigation" aria-label="Main navigation">
+      <div class="logo">My Internship</div>
+      <ul class="menu" role="menubar">
+        <li role="none"><a href="index.html" role="menuitem">Home</a></li>
+        <li role="none"><a href="task.html" class="active" role="menuitem">Task</a></li>
+        <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
+        <li role="none"><a href="apply.html" role="menuitem">Apply</a></li>
+        <li role="none"><a href="success.html" role="menuitem">Success</a></li>
+        
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero: slideshow (left) + landing info (right) -->
+  <main class="hero">
+
+    <!-- Slideshow -->
+    <div class="slideshow" aria-roledescription="carousel" aria-label="Project slides">
+      <!-- Slide 1 -->
+      <div class="slide" data-index="0">
+        <img src="cognifyz.jpeg" alt="Slide image 1 — internship overview">
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="slide" data-index="1">
+        <img src="asset\img2.jpeg" alt="Slide image 2 — project screenshots">
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="slide" data-index="2">
+        <img src="asset\img3.jpeg" alt="Slide image 3 — final result">
+      </div>
+
+      <!-- Navigation arrows -->
+      <button class="arrow left" id="prevBtn" aria-label="Previous slide">◀</button>
+      <button class="arrow right" id="nextBtn" aria-label="Next slide">▶</button>
+
+      <!-- Dots -->
+      <div class="dots" id="dotsContainer" aria-hidden="false"></div>
+    </div>
+
+    <!-- Landing card / CTA -->
+    <aside class="hero-card" aria-labelledby="main-title">
+      <h1 id="main-title">Welcome to Task 2 — Responsive Landing</h1>
+      <p>
+        This is the task landing page. The slideshow on the left cycles through three images. Use the arrows or dots to move between slides. The page is responsive and works on mobile.
+      </p>
+
+      <div class="cta-row">
+        <a class="btn" href="#" onclick="alert('You clicked Start Task'); return false;">Start Task</a>
+        <a class="btn ghost" href="#" onclick="alert('You clicked Learn More'); return false;">Learn More</a>
+      </div>
+
+      <small style="color:#bbb; margin-top:8px; display:block;">Tip: replace images in <code>assets/</code> with your images named <code>slide1.jpg</code>, <code>slide2.jpg</code>, <code>slide3.jpg</code>.</small>
+    </aside>
+  </main>
+
+  <footer>
+    © 2025 My Internship • Built for the Cognifyz assignment
+  </footer>
+
+  <script>
+    /* ---------- Slideshow script ---------- */
+    (function() {
+      const slides = document.querySelectorAll('.slide');
+      const dotsContainer = document.getElementById('dotsContainer');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      let index = 0;
+      let timer = null;
+      const duration = 3500; // ms
+
+      // create dots
+      slides.forEach((s, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot';
+        d.setAttribute('data-i', i);
+        d.setAttribute('role','button');
+        d.setAttribute('aria-label','Go to slide ' + (i+1));
+        d.addEventListener('click', () => { goToSlide(i); resetTimer(); });
+        dotsContainer.appendChild(d);
+      });
+
+      const dots = dotsContainer.querySelectorAll('.dot');
+
+      function showSlide(i) {
+        if(!slides[i]) return;
+        slides.forEach(s => s.style.display = 'none');
+        slides[i].style.display = 'block';
+        dots.forEach(d => d.classList.remove('active'));
+        dots[i].classList.add('active');
+      }
+
+      function next() { index = (index + 1) % slides.length; showSlide(index); }
+      function prev() { index = (index - 1 + slides.length) % slides.length; showSlide(index); }
+      function goToSlide(i) { index = i % slides.length; showSlide(index); }
+
+      nextBtn.addEventListener('click', () => { next(); resetTimer(); });
+      prevBtn.addEventListener('click', () => { prev(); resetTimer(); });
+
+      function startTimer() { timer = setInterval(next, duration); }
+      function stopTimer() { if (timer) clearInterval(timer); timer = null; }
+      function resetTimer() { stopTimer(); startTimer(); }
+
+      // keyboard left/right
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { prev(); resetTimer(); }
+        if (e.key === 'ArrowRight') { next(); resetTimer(); }
+      });
+
+      // init
+      showSlide(index);
+      startTimer();
+    })();
+  </script>
+</body>
+</html>
